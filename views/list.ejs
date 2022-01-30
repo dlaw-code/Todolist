@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&family=Sacramento&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Grocery Lists</title>
+</head>
+<body>
+    <header>
+        <div class="text-box">
+            <div class="header-box">
+                <h1><%= kindOfDay %></h1>
+            </div>
+            
+            <div class="item-box">
+                <% for( var i = 0; i < newListItems.length; i++) { %>
+                    <div class="item">
+                        <input type="checkbox">
+                          <p><%= newListItems[i] %></p>
+                    </div>
+                    
+                <% } %>
+            
+                <form action="/" method="post">
+                    <input type="text" name="newList" placeholder="Add New Item" autocomplete="off">
+                    <button>+</button>
+                </form>
+                
+            </div>
+            <div class="copyright">
+                &copy; Dlaw_Host 2022
+            </div>
+            
+        </div>
+    </header>
+    
+    
+    
+
+    
+</body>
+</html>
