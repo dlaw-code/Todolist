@@ -5,7 +5,7 @@
 }
 
 html{
-    background-color: tomato;
+    background-color: #000;
     font-size: 1rem;
     color: #fff;
     font-family: "Roboto",sans-serif;
@@ -71,9 +71,9 @@ input[type = checkbox] {
 input[type = text] {
     background: transparent;
     border: none;
-    height: 60px;
+    height: 50px;
     top: 10px;
-    width: 313px;
+    width: 80%;
     text-align: center;
     
 }
@@ -130,6 +130,10 @@ input:checked+p{
 
     .header-box{
         font-size: 0.88rem;
+    }
+
+    input[type = text] {
+        width: 80%;
     }
 
     
