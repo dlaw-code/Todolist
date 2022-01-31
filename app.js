@@ -6,28 +6,41 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
-var items = ["Cabbage", "Ata Rodo(Red Pepper)", "Onion"];
-
+let items = ["Cabbage", "Ata Rodo(Red Pepper)", "Onion"];
+let workLists = [];
 
 app.get("/", function(req,res) {
-    var today = new Date();
+    let today = new Date();
 
-    var options = {
+    let options = {
         weekday: "long",
         day: "numeric",
         month: "long"
     }
 
-    var day = today.toLocaleDateString("en-US", options);
+    let day = today.toLocaleDateString("en-US", options);
 
-    res.render("list", { kindOfDay: day, newListItems: items });
+    res.render("list", { listTitle: day, newListItems: items });
 })
 
 app.post("/", function(req,res) {
-     item = req.body.newList;
-     items.push(item);
-    res.redirect("/");
+    let item = req.body.newList;
+    if(req.body.list === "Work") {
+         workLists.push(item);
+        res.redirect("/work");
+    } else{
+        items.push(item);
+        res.redirect("/");
+    }
+     
+     
 })
+
+app.get("/work", function(req,res) {
+    res.render("list", {listTitle: "Work List", newListItems: workLists});
+})
+
+
 
 
 
