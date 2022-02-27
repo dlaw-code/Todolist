@@ -1,13 +1,39 @@
-const express = require("express");
 
+
+const express = require("express");
+const mongoose = require("mongoose");
 
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
-let items = ["Cabbage", "Ata Rodo(Red Pepper)", "Onion"];
-let workLists = [];
+mongoose.connect("mongodb://localhost:27017/todolistDB")
+
+const itemSchema = {
+    name: String
+}
+
+const Item = mongoose.model("Item", itemSchema);
+
+const item1 = new Item({
+    name: "Cabbage"
+})
+
+const item2 = new Item({
+    name: "Ata Rodo"
+})
+
+const item3 = new Item({
+    name: "Onions"
+})
+
+const defaultItems = [item1,item2,item3];
+
+
+
+
+
 
 app.get("/", function(req,res) {
     let today = new Date();
@@ -20,21 +46,49 @@ app.get("/", function(req,res) {
 
     let day = today.toLocaleDateString("en-US", options);
 
-    res.render("list", { listTitle: day, newListItems: items });
+    Item.find({}, function(err, foundItems) {
+
+        if(foundItems.length === 0) {
+            Item.insertMany(defaultItems, function(err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Successfully saved to the database");
+                }
+            });
+            res.redirect("/");
+        } else{
+            res.render("list", { listTitle: day, newListItems: foundItems });
+        }
+
+        
+    })
+
+    
 })
 
 app.post("/", function(req,res) {
-    let item = req.body.newList;
-    if(req.body.list === "Work") {
-         workLists.push(item);
-        res.redirect("/work");
-    } else{
-        items.push(item);
-        res.redirect("/");
-    }
-     
+    const itemName = req.body.newList;
+    
+    const item = new Item({
+        name: itemName
+    })
+
+    item.save();
+    res.redirect("/");
      
 })
+
+app.post("/delete", function(req,res) {
+    const checkedItemId = req.body.checkbox;
+
+    Item.findByIdAndRemove(checkedItemId, function(err) {
+        if(!err) {
+            console.log("Successfully deleted checked items");
+            res.redirect("/");
+        }
+    });
+});
 
 app.get("/work", function(req,res) {
     res.render("list", {listTitle: "Work List", newListItems: workLists});

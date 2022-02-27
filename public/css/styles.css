@@ -32,7 +32,7 @@ header{
 
 button{
     background-color: #7294c8;
-   
+    margin-top: 5px;
     width: 50px;
     min-height: 50px;
     border-radius: 50%;
