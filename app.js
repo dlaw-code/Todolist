@@ -21,7 +21,7 @@ const item1 = new Item({
 })
 
 const item2 = new Item({
-    name: "Ata Rodo"
+    name: "Ata Rodo(Pepper)"
 })
 
 const item3 = new Item({
