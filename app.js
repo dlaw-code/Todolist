@@ -17,11 +17,11 @@ const itemSchema = {
 const Item = mongoose.model("Item", itemSchema);
 
 const item1 = new Item({
-    name: "Cabbage"
+    name: "Click on the + button to add item"
 })
 
 const item2 = new Item({
-    name: "Ata Rodo(Pepper)"
+    name: "click on the checkbox to delete an item"
 })
 
 const item3 = new Item({
